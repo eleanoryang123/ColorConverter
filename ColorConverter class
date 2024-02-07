@@ -1,1 +1,56 @@
+package ColorConverter;
+
+public class ColorConverter {
+	private Color[][] myColors;
+	
+	public ColorConverter(int rows, int cols, int type, int[] first, int[] second, int[] third) {
+		if (type == 1) {
+			myColors = new Color[rows][cols];
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < cols; j++) {
+					myColors[i][j] = new Color(1, first[i*cols+j], second[i*cols+j],third[i*cols+j]);
+				}
+			}
+		}
+		else if (type == 2) {
+			myColors = new Color[rows][cols];
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < cols; j++) {
+					myColors[i][j] = new Color(2, first[i*cols+j], second[i*cols+j],third[i*cols+j]);
+				}
+			}
+		}
+	}
+	
+	public Color[][] RGBtoHSV() {
+		Color[][] convertedToHSV = new Color[myColors.length][myColors[0].length];
+		for (int i = 0; i < myColors.length; i++) {
+			for (int j = 0; j < myColors[0].length; j++) {
+				Color current = myColors[i][j];
+				convertedToHSV[i][j] = current.RGBtoHSV();
+			}
+		}
+		return convertedToHSV;
+	}
+	
+	public Color[][] HSVtoRGB(){
+		Color[][] convertedToRGB = new Color[myColors.length][myColors[0].length];
+		for (int i = 0; i < myColors.length; i++) {
+			for (int j = 0; j < myColors[0].length; j++) {
+				Color current = myColors[i][j];
+				convertedToRGB[i][j] = current.HSVtoRGB();
+			}
+		}
+		return convertedToRGB;
+	}
+	
+	public void print() {
+		for (int i = 0; i < myColors.length; i++) {
+			for (int j = 0; j < myColors[0].length; j++) {
+				myColors[i][j].printColor();
+			}
+			System.out.println();
+		}
+	}
+}
 
