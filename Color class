@@ -1,1 +1,210 @@
+package color;
+
+public class Color {
+	private final int MAX_COLOR = 255;
+	private double rgbR;
+	private double rgbG;
+	private double rgbB;
+	private double hsvH;
+	private double hsvS;
+	private double hsvV;
+	public Color(int type, double value1, double value2, double value3){
+		if(type == 1) {
+			rgbR = value1;
+			rgbG = value2;
+			rgbB = value3;
+		}
+		else {
+			hsvH = value1;
+			hsvS = value2;
+			hsvV = value3;
+		}
+	}
+	public void setRGB(double r, double g, double b){
+		rgbR = r;
+		rgbG = g;
+		rgbB = b;
+	}
+	public void setHSV(double h, double s, double v){
+		hsvH = h;
+		hsvS = s;
+		hsvV = v;
+	}
+	public void setRed(double r) {
+		rgbR = r;
+	}
+	public void setGreen(double g) {
+		rgbG = g;
+	}
+	public void setBlue(double b) {
+		rgbB = b;
+	}
+	public void setHue(double h) {
+		hsvH = h;
+	}
+	public void setSaturation(double s) {
+		hsvS = s;
+	}
+	public void setB(double b) {
+		hsvV = b;
+	}
+	public double[] getRGB() {
+		double[] rgb = {rgbR, rgbG, rgbB};
+		return rgb;
+		
+	}
+	public double getRed(){
+		return rgbR;
+	}
+	public double getGreen(){
+		return rgbG;
+	}
+	public double getBlue(){
+		return rgbB;
+	}
+	public double[] getHSV() {
+		double[] hsv = {hsvH, hsvS, hsvV};
+		return hsv;
+		
+	}
+	public double getHue(){
+		return hsvH;
+	}
+	public double getSaturation(){
+		return hsvS;
+	}
+	public double getBrightness(){
+		return hsvV;
+	}
+	private double getMaximum(double one, double two, double three) {
+		double[] arr = {one, two, three};
+		double max = arr[0];
+		for(int i = 0; i<arr.length; i++) {
+			if(arr[i]>max) {
+				max = arr[i];
+			}
+		}
+		return max;
+		
+	}
+	private double getMinimum(double one, double two, double three) {
+		double[] arr = {one, two, three};
+		double min = arr[0];
+		for(int i = 0; i<arr.length; i++) {
+			if(arr[i]<min) {
+				min = arr[i];
+			}
+		}
+		return min;
+	}
+	private void calculateHue(double r, double g, double b, double max, double min) {
+		double newR = r/255;
+		double newG = g/255;
+		double newB = b/255;
+		double delta = max-min;
+		
+		if(delta == 0) {
+			hsvH = 0;
+		}
+		if(max == newR){
+			hsvH = 60*(((newG-newB)/delta)%6);
+		}
+		if(max == newG) {
+			hsvH = 60*(((newB-newR)/delta)+2);
+		}
+		if(max == newB) {
+			hsvH = 60*(((newR-newG)/delta)+4);
+		}
+		
+		
+	}
+	private void calculateSaturation(double max, double min) {
+		double delta = max-min;
+		if(max == 0) {
+			hsvS = 0;
+		}
+		else {
+			hsvS = delta/max;
+		}
+	}
+	private void calculateBrightness(double max) {
+		hsvV = max;
+	}
+	public Color RGBtoHSV() {
+		double max = getMaximum(rgbR, rgbG, rgbB);
+		double min = getMinimum(rgbR, rgbG, rgbB);
+		calculateHue(rgbR, rgbG, rgbB, max,min);
+		calculateSaturation(max,min);
+		calculateBrightness(max);
+		setHSV(hsvH, hsvS, hsvV);
+		return new Color(2, hsvH, hsvS, hsvV);
+
+
+	}
+	public Color HSVtoRGB() {
+		double c = hsvV*hsvS;
+		double x = c*(1-Math.abs((hsvH/60)%2-1));
+		double m = hsvV-c;
+		double newR = 0;
+		double newG = 0;
+		double newB = 0;
+		double rPrime;
+		double gPrime;
+		double bPrime;
+		if(hsvH>=0 && hsvH<60) {
+			newR = c;
+			newG = x;
+		}
+		if(hsvH>=60 && hsvH<120) {
+			newR = x;
+			newG = c;
+		}
+		if(hsvH>=120 && hsvH<180) {
+			newG = c;
+			newB = x;
+		}
+		if(hsvH>=180 && hsvH<240) {
+			newG = x;
+			newB = c;
+		}
+		if(hsvH>=240 && hsvH<300) {
+			newR = x;
+			newB = c;
+		}
+		if(hsvH>=300 && hsvH<360) {
+			newR = c;
+			newB = x;
+		}
+		rPrime = (newR+m)*MAX_COLOR;
+		gPrime = (newG+m)*MAX_COLOR;
+		bPrime = (newB+m)*MAX_COLOR;
+		if(rPrime>MAX_COLOR) {
+			rPrime = MAX_COLOR;
+		}
+		if(gPrime>MAX_COLOR) {
+			gPrime = MAX_COLOR;
+		}
+		if(bPrime>MAX_COLOR) {
+			bPrime = MAX_COLOR;
+		}
+		if(rPrime<255) {
+			rPrime = (int)(rPrime)+1;
+		}
+		if(gPrime<255) {
+			gPrime = (int)(rPrime)+1;
+		}
+		if(bPrime<255) {
+			bPrime = (int)(rPrime)+1;
+		}
+		return new Color(1,rPrime,gPrime,bPrime);
+		
+	}
+	public void printColor()
+	{
+		char c = 176;
+		System.out.printf("%10s%3d%2s%3d%2s%3d%2s", "\tRGB = (" , rgbR , ", " , rgbG , ", " , rgbB , ")");
+		System.out.printf("%10s%3d%2s%3d%2s%3d%2s", "HSV = (" , hsvH , (""+ c+", ")  , hsvS , "%, " , hsvV , "%)");
+	}
+	
+}
 
