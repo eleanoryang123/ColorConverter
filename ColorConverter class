@@ -1,8 +1,11 @@
-package ColorConverter;
 
 public class ColorConverter {
 	private Color[][] myColors;
 	
+	/**
+	 * Constructor creates a myColors array with given dimensions and fills it with Color objects
+	 * formed by values in the three passed arrays.
+	 */
 	public ColorConverter(int rows, int cols, int type, int[] first, int[] second, int[] third) {
 		if (type == 1) {
 			myColors = new Color[rows][cols];
@@ -22,35 +25,48 @@ public class ColorConverter {
 		}
 	}
 	
+	/**
+	 * Returns a 2D array with old RGB values and new HSV values
+	 * @return 2D array to with RGB and converted to HSV values
+	 */
 	public Color[][] RGBtoHSV() {
-		Color[][] convertedToHSV = new Color[myColors.length][myColors[0].length];
+		Color[][] convertedToHSV = new Color[myColors.length][myColors[0].length * 2];
 		for (int i = 0; i < myColors.length; i++) {
-			for (int j = 0; j < myColors[0].length; j++) {
+			for (int j = 0; j < myColors[0].length * 2 - 1; j+=2) {
 				Color current = myColors[i][j];
-				convertedToHSV[i][j] = current.RGBtoHSV();
+				convertedToHSV[i][j] = current;
+				convertedToHSV[i][j+1] = current.RGBtoHSV();
 			}
 		}
 		return convertedToHSV;
 	}
 	
+	/**
+	 * Returns a 2D array with old HSV values and new RGB values
+	 * @return 2D array with HSV and converted to RGB values
+	 */
 	public Color[][] HSVtoRGB(){
-		Color[][] convertedToRGB = new Color[myColors.length][myColors[0].length];
+		Color[][] convertedToRGB = new Color[myColors.length][myColors[0].length * 2];
 		for (int i = 0; i < myColors.length; i++) {
-			for (int j = 0; j < myColors[0].length; j++) {
+			for (int j = 0; j < myColors[0].length * 2 - 1; j+=2) {
 				Color current = myColors[i][j];
-				convertedToRGB[i][j] = current.HSVtoRGB();
+				convertedToRGB[i][j] = current;
+				convertedToRGB[i][j+1] = current.HSVtoRGB();
 			}
 		}
 		return convertedToRGB;
 	}
 	
+	/**
+	 * Prints a 2D array of color objects
+	 */
 	public void print() {
 		for (int i = 0; i < myColors.length; i++) {
 			for (int j = 0; j < myColors[0].length; j++) {
 				myColors[i][j].printColor();
+				System.out.println("\t");
 			}
 			System.out.println();
 		}
 	}
 }
-
