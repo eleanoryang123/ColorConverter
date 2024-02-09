@@ -20,7 +20,7 @@ public class Color {
 			hsvV = value3;
 		}
 		else{
-			System.out.println("Invalid type value. Enter 1 or 2");
+			System.out.println("Invalid type value. Enter 1 or 2.");
 		}
 	}
 	public void setRGB(double r, double g, double b){
