@@ -14,10 +14,13 @@ public class Color {
 			rgbG = value2;
 			rgbB = value3;
 		}
-		else {
+		else if(type == 2){
 			hsvH = value1;
 			hsvS = value2;
 			hsvV = value3;
+		}
+		else{
+			System.out.println("Invalid type value. Enter 1 or 2");
 		}
 	}
 	public void setRGB(double r, double g, double b){
