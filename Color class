@@ -2,13 +2,21 @@ package color;
 
 public class Color {
 	private final int MAX_COLOR = 255;
-	private double rgbR;
-	private double rgbG;
-	private double rgbB;
-	private double hsvH;
-	private double hsvS;
-	private double hsvV;
-	public Color(int type, double value1, double value2, double value3){
+	private int rgbR;
+	private int rgbG;
+	private int rgbB;
+	private int hsvH;
+	private int hsvS;
+	private int hsvV;
+	
+	/**
+     * Constructs a Color object based on the specified color space type and values.
+     * @param type the type of color space (1 for RGB, 2 for HSV)
+     * @param value1 the value of the first component
+     * @param value2 the value of the second component
+     * @param value3 the value of the third component
+     */
+	public Color(int type, int value1, int value2, int value3){
 		if(type == 1) {
 			rgbR = value1;
 			rgbG = value2;
@@ -19,66 +27,138 @@ public class Color {
 			hsvS = value2;
 			hsvV = value3;
 		}
-		else{
+		else {
 			System.out.println("Invalid type value. Enter 1 or 2.");
 		}
 	}
-	public void setRGB(double r, double g, double b){
+	/**
+     * Sets the RGB components of the color.
+     * @param r the red component
+     * @param g the green component
+     * @param b the blue component
+     */
+	public void setRGB(int r, int g, int b){
 		rgbR = r;
 		rgbG = g;
 		rgbB = b;
 	}
-	public void setHSV(double h, double s, double v){
+	
+	/**
+     * Sets the HSV components of the color.
+     * @param h the hue component
+     * @param s the saturation component
+     * @param v the value component
+     */
+	public void setHSV(int h, int s, int v){
 		hsvH = h;
 		hsvS = s;
 		hsvV = v;
 	}
-	public void setRed(double r) {
+	
+	/**
+     * Sets the red component of the color.
+     * @param r the red component
+     */
+	public void setRed(int r) {
 		rgbR = r;
 	}
-	public void setGreen(double g) {
+	
+	/**
+     * Sets the green component of the color.
+     * @param g the green component
+     */
+	public void setGreen(int g) {
 		rgbG = g;
 	}
-	public void setBlue(double b) {
+	
+	/**
+     * Sets the blue component of the color.
+     * @param b the blue component
+     */
+	public void setBlue(int b) {
 		rgbB = b;
 	}
-	public void setHue(double h) {
+	
+	/**
+     * Sets the hue component of the color.
+     * @param h the hue component
+     */
+	public void setHue(int h) {
 		hsvH = h;
 	}
-	public void setSaturation(double s) {
+	
+	/**
+     * Sets the saturation component of the color.
+     * @param s the saturation component
+     */
+	public void setSaturation(int s) {
 		hsvS = s;
 	}
-	public void setB(double b) {
+	
+	/**
+     * Sets the brightness component of the color.
+     * @param b the hue component
+     */
+	public void setB(int b) {
 		hsvV = b;
 	}
-	public double[] getRGB() {
-		double[] rgb = {rgbR, rgbG, rgbB};
+	
+	/**
+     * Gets the RGB components of the color.
+     * @return an array containing the red, green, and blue components
+     */
+	public int[] getRGB() {
+		int[] rgb = {rgbR, rgbG, rgbB};
 		return rgb;
 		
 	}
-	public double getRed(){
+	
+	/**
+     * Gets the red component of the color.
+     * @return a double containing the red component
+     */
+	public int getRed(){
 		return rgbR;
 	}
-	public double getGreen(){
+	
+	/**
+     * Gets the green component of the color.
+     * @return a double containing the green component
+     */
+	public int getGreen(){
 		return rgbG;
 	}
-	public double getBlue(){
+	
+	/**
+     * Gets the blue component of the color.
+     * @return a double containing the blue component
+     */
+	public int getBlue(){
 		return rgbB;
 	}
-	public double[] getHSV() {
-		double[] hsv = {hsvH, hsvS, hsvV};
+	
+	/**
+     * Gets the HSV components of the color.
+     * @return an array containing the hue, saturation, and brightness components
+     */
+	public int[] getHSV() {
+		int[] hsv = {hsvH, hsvS, hsvV};
 		return hsv;
 		
 	}
-	public double getHue(){
+	
+	public int getHue(){
 		return hsvH;
 	}
-	public double getSaturation(){
+	
+	public int getSaturation(){
 		return hsvS;
 	}
-	public double getBrightness(){
+	
+	public int getBrightness(){
 		return hsvV;
 	}
+	
 	private double getMaximum(double one, double two, double three) {
 		double[] arr = {one, two, three};
 		double max = arr[0];
@@ -90,6 +170,7 @@ public class Color {
 		return max;
 		
 	}
+	
 	private double getMinimum(double one, double two, double three) {
 		double[] arr = {one, two, three};
 		double min = arr[0];
@@ -100,6 +181,7 @@ public class Color {
 		}
 		return min;
 	}
+	
 	private void calculateHue(double r, double g, double b, double max, double min) {
 		double newR = r/255;
 		double newG = g/255;
@@ -110,29 +192,32 @@ public class Color {
 			hsvH = 0;
 		}
 		if(max == newR){
-			hsvH = 60*(((newG-newB)/delta)%6);
+			hsvH = (int)(60*(((newG-newB)/delta)%6));
 		}
 		if(max == newG) {
-			hsvH = 60*(((newB-newR)/delta)+2);
+			hsvH = (int)(60*(((newB-newR)/delta)+2));
 		}
 		if(max == newB) {
-			hsvH = 60*(((newR-newG)/delta)+4);
+			hsvH = (int)(60*(((newR-newG)/delta)+4));
 		}
 		
 		
 	}
+	
 	private void calculateSaturation(double max, double min) {
 		double delta = max-min;
 		if(max == 0) {
 			hsvS = 0;
 		}
 		else {
-			hsvS = delta/max;
+			hsvS = (int)(delta/max);
 		}
 	}
+	
 	private void calculateBrightness(double max) {
-		hsvV = max;
+		hsvV = (int)max;
 	}
+	
 	public Color RGBtoHSV() {
 		double max = getMaximum(rgbR, rgbG, rgbB);
 		double min = getMinimum(rgbR, rgbG, rgbB);
@@ -144,16 +229,17 @@ public class Color {
 
 
 	}
+	
 	public Color HSVtoRGB() {
-		double c = hsvV*hsvS;
-		double x = c*(1-Math.abs((hsvH/60)%2-1));
-		double m = hsvV-c;
-		double newR = 0;
-		double newG = 0;
-		double newB = 0;
-		double rPrime;
-		double gPrime;
-		double bPrime;
+		int c = hsvV*hsvS;
+		int x = c*(1-Math.abs((hsvH/60)%2-1));
+		int m = hsvV-c;
+		int newR = 0;
+		int newG = 0;
+		int newB = 0;
+		int rPrime;
+		int gPrime;
+		int bPrime;
 		if(hsvH>=0 && hsvH<60) {
 			newR = c;
 			newG = x;
@@ -202,6 +288,7 @@ public class Color {
 		return new Color(1,rPrime,gPrime,bPrime);
 		
 	}
+	
 	public void printColor()
 	{
 		char c = 176;
@@ -210,4 +297,3 @@ public class Color {
 	}
 	
 }
-
