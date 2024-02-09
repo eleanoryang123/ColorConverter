@@ -30,12 +30,11 @@ public class ColorConverter {
 	 * @return 2D array to with RGB and converted to HSV values
 	 */
 	public Color[][] RGBtoHSV() {
-		Color[][] convertedToHSV = new Color[myColors.length][myColors[0].length * 2];
+		Color[][] convertedToHSV = new Color[myColors.length][myColors[0].length];
 		for (int i = 0; i < myColors.length; i++) {
-			for (int j = 0; j < myColors[0].length * 2 - 1; j+=2) {
+			for (int j = 0; j < myColors[0].length; j++) {
 				Color current = myColors[i][j];
-				convertedToHSV[i][j] = current;
-				convertedToHSV[i][j+1] = current.RGBtoHSV();
+				convertedToHSV[i][j] = current.RGBtoHSV();
 			}
 		}
 		return convertedToHSV;
@@ -46,12 +45,11 @@ public class ColorConverter {
 	 * @return 2D array with HSV and converted to RGB values
 	 */
 	public Color[][] HSVtoRGB(){
-		Color[][] convertedToRGB = new Color[myColors.length][myColors[0].length * 2];
+		Color[][] convertedToRGB = new Color[myColors.length][myColors[0].length];
 		for (int i = 0; i < myColors.length; i++) {
-			for (int j = 0; j < myColors[0].length * 2 - 1; j+=2) {
+			for (int j = 0; j < myColors[0].length; j++) {
 				Color current = myColors[i][j];
-				convertedToRGB[i][j] = current;
-				convertedToRGB[i][j+1] = current.HSVtoRGB();
+				convertedToRGB[i][j] = current.HSVtoRGB();
 			}
 		}
 		return convertedToRGB;
