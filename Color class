@@ -188,10 +188,11 @@ public class Color {
 		double newB = b/255;
 		double delta = max-min;
 		
+		
 		if(delta == 0) {
 			hsvH = 0;
 		}
-		if(max == newR){
+	    if(max == newR){
 			hsvH = (int)(60*(((newG-newB)/delta)%6));
 		}
 		if(max == newG) {
@@ -201,7 +202,6 @@ public class Color {
 			hsvH = (int)(60*(((newR-newG)/delta)+4));
 		}
 		
-		
 	}
 	
 	private void calculateSaturation(double max, double min) {
@@ -210,7 +210,7 @@ public class Color {
 			hsvS = 0;
 		}
 		else {
-			hsvS = (int)(delta/max);
+			hsvS = (int)(delta/max*100);
 		}
 	}
 	
@@ -219,11 +219,11 @@ public class Color {
 	}
 	
 	public Color RGBtoHSV() {
-		double max = getMaximum(rgbR, rgbG, rgbB);
-		double min = getMinimum(rgbR, rgbG, rgbB);
+		double max = getMaximum((double)rgbR/255, (double)rgbG/255, (double)rgbB/255);
+		double min = getMinimum((double)rgbR/255, (double)rgbG/255, (double)rgbB/255);
 		calculateHue(rgbR, rgbG, rgbB, max,min);
 		calculateSaturation(max,min);
-		calculateBrightness(max);
+		calculateBrightness(max*100);
 		setHSV(hsvH, hsvS, hsvV);
 		return new Color(2, hsvH, hsvS, hsvV);
 
