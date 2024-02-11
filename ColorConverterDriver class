@@ -1,32 +1,229 @@
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
 public class ColorConverterDriver {
+	
+	public static ArrayList<int[]> processFile(String filename) {
+        ArrayList<int[]> arrays = new ArrayList<int[]>();
+
+        try {
+            // Create a Scanner to read from the file
+            Scanner scanner = new Scanner(new File(filename));
+
+            // Process each line until the end of the file
+            while (scanner.hasNextLine()) {
+                // Read one line from the file
+                String line = scanner.nextLine();
+
+                // Split the line into individual components
+                String[] components = line.split(",");
+
+                // Convert components to integers and store in an array
+                int[] values = new int[components.length];
+                for (int i = 0; i < components.length; i++) {
+                    values[i] = Integer.parseInt(components[i].trim());
+                }
+
+                // Add the array to the collection
+                arrays.add(values);
+                for (int value : values) {
+                    System.out.print(value + " ");
+                }
+                System.out.println(); 
+            }
+
+            // Close the scanner
+            scanner.close();
+            
+        } catch (Exception e) {
+           return null;
+        }
+
+        return arrays;
+    }
 
 	public static void main(String[] args) {
-		// must be changed to user inputting these values or reading in from files
-		int[] firstRGB = {0, 255, 255, 0, 0, 255, 0, 255, 192, 128, 128, 128, 0, 128, 0, 0};
-		int[] secondRGB = {0, 255, 0, 255, 0, 255, 255, 0, 192, 128, 0, 128, 128, 0, 128, 0};
-		int[] thirdRGB = {0, 255, 0, 0, 255, 0, 255, 255, 192, 128, 0, 0, 0, 0, 128, 128};
 		
-		ColorConverter RGBColors = new ColorConverter(8, 2, 1, firstRGB, secondRGB, thirdRGB);
-		System.out.println("RGB colors:");
-		RGBColors.print();
 		
-		RGBColors.RGBtoHSV();
-		System.out.println("Testing conversion to HSV:");
-		RGBColors.print();
+		//prompting the user to choose hsv to rgb or rgb to hsv and how to read the data
+		Scanner scan = new Scanner(System.in);
+		System.out.println("Do you want RGB to HSV or HSV to RGB (enter 1 or 2):");
+		int type = scan.nextInt();
+		while(type != 1 && type != 2) {
+			System.out.println("Enter a valid type (1 or 2): ");
+			type = scan.nextInt();
+		}
+		System.out.println("Should the values be preset, randomly generated, or manually inputted? (enter 1, 2, or 3 respectively)");
+		int num = scan.nextInt();
+		while(num != 1 && num != 2 && num != 3) {
+			System.out.println("Enter a valid value (1, 2, or 3): ");
+			num = scan.nextInt();
+		}
 		
-		// must be changed to user inputting these values or reading in from files
-		int[] firstHSV = {0, 0, 0, 120, 240, 60, 180, 300, 0, 0, 0, 60, 120, 0, 180, 240};
-		int[] secondHSV = {0, 0, 100, 100, 100, 100, 100, 100, 0, 0, 100, 100, 100, 100, 100, 100};
-		int[] thirdHSV = {0, 100, 100, 100, 100, 100, 100, 100, 75, 50, 50, 50, 50, 50, 50, 50};
+		//if rgb given
+		if(type == 1) {	
+			if(num == 1) {
+				
+				ArrayList<int[]> RGBarrays = processFile("RGB.txt");
+				int[] firstRGB = RGBarrays.get(0);
+				int[] secondRGB = RGBarrays.get(1);
+				int[] thirdRGB = RGBarrays.get(2);
+				
+				ColorConverter RGBColors = new ColorConverter(8, 2, 1, firstRGB, secondRGB, thirdRGB);
+				System.out.println("RGB colors:");
+				RGBColors.print();
+				
+				RGBColors.RGBtoHSV();
+				System.out.println("Testing conversion to HSV:");
+				RGBColors.print();
+			}
+			else if(num == 2) {
+				int r = 0;
+				int g = 0;
+				int b = 0;
+				int[] firstR = new int[16];
+				int[] firstG = new int[16];
+				int[] firstB = new int[16];
+				
+				for(int i = 0; i<16; i++) {
+					r = (int)(Math.random()*255);
+					firstR[i] = r;
+					g = (int)(Math.random()*255);
+					firstG[i] = g;
+					b = (int)(Math.random()*255);
+					firstB[i] = b;
+				}
+				
+				ColorConverter RGBColors = new ColorConverter(8, 2, 1, firstR, firstG, firstB);
+				System.out.println("RGB colors:");
+				RGBColors.print();
+				
+				RGBColors.RGBtoHSV();
+				System.out.println("Testing conversion to HSV:");
+				RGBColors.print();
+			}
+			else if(num == 3) {
+				
+				System.out.println("How many rows and columns do you want? (input rows SPACE cols): ");
+				int rows = scan.nextInt();
+				int cols = scan.nextInt();
+				int val = rows*cols;
+				
+				int[] rgbR = new int[val];
+				int[] rgbG = new int[val];
+				int[] rgbB = new int[val];
+				
+				System.out.println("Enter all " + val + " values for red: ");
+				for(int i = 0; i<val; i++) {
+					rgbR[i] = scan.nextInt();
+				}
+				
+				System.out.println("Enter all " + val + " values for green: ");
+				for(int i = 0; i<val; i++) {
+					rgbG[i] = scan.nextInt();
+				}
+				
+				System.out.println("Enter all " + val + " values for blue: ");
+				for(int i = 0; i<val; i++) {
+					rgbB[i] = scan.nextInt();
+				}
+				
+				ColorConverter RGBColors = new ColorConverter(rows, cols, 1, rgbR, rgbG, rgbB);
+				System.out.println("RGB colors:");
+				RGBColors.print();
+				
+				RGBColors.RGBtoHSV();
+				System.out.println("Testing conversion to HSV:");
+				RGBColors.print();
+				
+			}
+
+			
+		}
+		//if hsv given
+		else if(type == 2) {
+			
+			if(num == 1) {
+				ArrayList<int[]> HSVarrays = processFile("HSV.txt");
+				int[] firstHSV = HSVarrays.get(0);
+				int[] secondHSV = HSVarrays.get(1);
+				int[] thirdHSV = HSVarrays.get(2);
+				ColorConverter HSVColors = new ColorConverter(8, 2, 2, firstHSV, secondHSV, thirdHSV);
+				System.out.println("HSV colors:");
+				HSVColors.print();
+				
+				HSVColors.HSVtoRGB();
+				System.out.println("Testing conversion to RGB:");
+				HSVColors.print();
+			}
+			
+			else if(num == 2) {
+				int h = 0;
+				int s = 0;
+				int v = 0;
+				int[] firstH = new int[16];
+				int[] firstS = new int[16];
+				int[] firstV = new int[16];
+				for(int i = 0; i<16; i++) {
+					h = (int)(Math.random()*360);
+					firstH[i] = h;
+					s = (int)(Math.random()*100);
+					firstS[i] = s;
+					v = (int)(Math.random()*100);
+					firstV[i] = v;
+				}
+				ColorConverter HSVColors = new ColorConverter(8, 2, 2, firstH, firstS, firstV);
+				System.out.println("HSV colors:");
+				HSVColors.print();
+				
+				HSVColors.HSVtoRGB();
+				System.out.println("Testing conversion to RGB:");
+				HSVColors.print();
+			}
+			
+			else if(num == 3) {
+
+				System.out.println("How many rows and columns do you want? (separate rows space cols): ");
+				int rows = scan.nextInt();
+				int cols = scan.nextInt();
+				int val = rows*cols;
+				
+				int[] hsvH = new int[val];
+				int[] hsvS = new int[val];
+				int[] hsvV = new int[val];
+				
+				System.out.println("Enter all " + val + " values for hue: ");
+				for(int i = 0; i<val; i++) {
+					hsvH[i] = scan.nextInt();
+				}
+				
+				System.out.println("Enter all " + val + " values for saturation: ");
+				for(int i = 0; i<val; i++) {
+					hsvS[i] = scan.nextInt();
+				}
+				
+				System.out.println("Enter all " + val + " values for brightness: ");
+				for(int i = 0; i<val; i++) {
+					hsvV[i] = scan.nextInt();
+				}
+				
+				ColorConverter HSVColors = new ColorConverter(rows, cols, 2, hsvH, hsvS, hsvV);
+				System.out.println("HSV colors:");
+				HSVColors.print();
+				
+				HSVColors.HSVtoRGB();
+				System.out.println("Testing conversion to RGB:");
+				HSVColors.print();
+			}
+		}
 		
-		ColorConverter HSVColors = new ColorConverter (8, 2, 2, firstHSV, secondHSV, thirdHSV);
-		System.out.println("HSV colors:");
-		HSVColors.print();
+
 		
-		HSVColors.HSVtoRGB();
-		System.out.println("Testing conversion to RGB:");
-		HSVColors.print();
 	}
+	
+	
 
 }
