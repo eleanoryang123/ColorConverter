@@ -5,6 +5,12 @@ public class ColorConverter {
 	/**
 	 * Constructor creates a myColors array with given dimensions and fills it with Color objects
 	 * formed by values in the three passed arrays.
+	 * @param rows - number of rows for the myColors array
+	 * @param cols - number of columns for the myColors array
+	 * @param type - type of color format (1 for RGB, 2 for HSV)
+	 * @param first - array of reds or hues
+	 * @param second - array of greens or saturations
+	 * @param third - array of blues or brightness
 	 */
 	public ColorConverter(int rows, int cols, int type, int[] first, int[] second, int[] third) {
 		if (type == 1) {
@@ -35,6 +41,7 @@ public class ColorConverter {
 			for (int j = 0; j < myColors[0].length; j++) {
 				Color current = myColors[i][j];
 				convertedToHSV[i][j] = current.RGBtoHSV();
+				myColors[i][j] = current.RGBtoHSV();
 			}
 		}
 		return convertedToHSV;
@@ -50,6 +57,7 @@ public class ColorConverter {
 			for (int j = 0; j < myColors[0].length; j++) {
 				Color current = myColors[i][j];
 				convertedToRGB[i][j] = current.HSVtoRGB();
+				myColors[i][j] = current.HSVtoRGB();
 			}
 		}
 		return convertedToRGB;
@@ -62,7 +70,7 @@ public class ColorConverter {
 		for (int i = 0; i < myColors.length; i++) {
 			for (int j = 0; j < myColors[0].length; j++) {
 				myColors[i][j].printColor();
-				System.out.println("\t");
+				System.out.print("\t");
 			}
 			System.out.println();
 		}
