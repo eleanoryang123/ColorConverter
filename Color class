@@ -1,4 +1,3 @@
-package color;
 
 public class Color {
 	private final int MAX_COLOR = 255;
@@ -225,18 +224,20 @@ public class Color {
 		calculateSaturation(max,min);
 		calculateBrightness(max*100);
 		setHSV(hsvH, hsvS, hsvV);
-		return new Color(2, hsvH, hsvS, hsvV);
+		Color HSVcolors = new Color(2, hsvH, hsvS, hsvV);
+		HSVcolors.setRGB(rgbR, rgbG, rgbB);
+		return HSVcolors;
 
 
 	}
 	
 	public Color HSVtoRGB() {
-		int c = hsvV*hsvS;
-		int x = c*(1-Math.abs((hsvH/60)%2-1));
-		int m = hsvV-c;
-		int newR = 0;
-		int newG = 0;
-		int newB = 0;
+		double c = hsvV/100.0*hsvS;
+		double x = c*(1-Math.abs((hsvH/60)%2-1));
+		double m = hsvV/100.0-c;
+		double newR = 0;
+		double newG = 0;
+		double newB = 0;
 		int rPrime;
 		int gPrime;
 		int bPrime;
@@ -264,9 +265,9 @@ public class Color {
 			newR = c;
 			newB = x;
 		}
-		rPrime = (newR+m)*MAX_COLOR;
-		gPrime = (newG+m)*MAX_COLOR;
-		bPrime = (newB+m)*MAX_COLOR;
+		rPrime = (int)((newR+m)*MAX_COLOR);
+		gPrime = (int)((newG+m)*MAX_COLOR);
+		bPrime = (int)((newB+m)*MAX_COLOR);
 		if(rPrime>MAX_COLOR) {
 			rPrime = MAX_COLOR;
 		}
@@ -276,16 +277,28 @@ public class Color {
 		if(bPrime>MAX_COLOR) {
 			bPrime = MAX_COLOR;
 		}
-		if(rPrime<255) {
-			rPrime = (int)(rPrime)+1;
+		if(rPrime<255 && rPrime>0) {
+			rPrime += 1;
 		}
-		if(gPrime<255) {
-			gPrime = (int)(rPrime)+1;
+		if(gPrime<255 && gPrime>0) {
+			gPrime += 1;
 		}
-		if(bPrime<255) {
-			bPrime = (int)(rPrime)+1;
+		if(bPrime<255 && bPrime>0) {
+			bPrime += 1;
 		}
-		return new Color(1,rPrime,gPrime,bPrime);
+		if(rPrime<0) {
+			rPrime = 0;
+		}
+		if(gPrime<0) {
+			gPrime = 0;
+		}
+		if(bPrime<0) {
+			bPrime = 0;
+		}
+		setRGB(rPrime, gPrime, bPrime);
+		Color RGBcolors = new Color(1,rPrime,gPrime,bPrime);
+		RGBcolors.setHSV(hsvH, hsvS, hsvV);
+		return RGBcolors;
 		
 	}
 	
