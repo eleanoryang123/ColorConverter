@@ -232,7 +232,7 @@ public class Color {
 	}
 	
 	public Color HSVtoRGB() {
-		double c = hsvV/100.0*hsvS;
+		double c = hsvV/100.0*hsvS/100.0;
 		double x = c*(1-Math.abs((hsvH/60)%2-1));
 		double m = hsvV/100.0-c;
 		double newR = 0;
@@ -285,15 +285,6 @@ public class Color {
 		}
 		if(bPrime<255 && bPrime>0) {
 			bPrime += 1;
-		}
-		if(rPrime<0) {
-			rPrime = 0;
-		}
-		if(gPrime<0) {
-			gPrime = 0;
-		}
-		if(bPrime<0) {
-			bPrime = 0;
 		}
 		setRGB(rPrime, gPrime, bPrime);
 		Color RGBcolors = new Color(1,rPrime,gPrime,bPrime);
