@@ -2,38 +2,31 @@
 public class ColorConverterDriver {
 
 	public static void main(String[] args) {
+		// must be changed to user inputting these values
 		int[] firstRGB = {0, 255, 255, 0, 0, 255, 0, 255, 192, 128, 128, 128, 0, 128, 0, 0};
 		int[] secondRGB = {0, 255, 0, 255, 0, 255, 255, 0, 192, 128, 0, 128, 128, 0, 128, 0};
 		int[] thirdRGB = {0, 255, 0, 0, 255, 0, 255, 255, 192, 128, 0, 0, 0, 0, 128, 128};
 		
 		ColorConverter RGBColors = new ColorConverter(8, 2, 1, firstRGB, secondRGB, thirdRGB);
+		System.out.println("RGB colors:");
 		RGBColors.print();
 		
-		Color[][] convertedRGB = RGBColors.RGBtoHSV();
-		for (int i = 0; i < convertedRGB.length; i++) {
-			for (int j = 0; j < convertedRGB[0].length; j++) {
-				convertedRGB[i][j].printColor();
-				System.out.println("\t");
-			}
-			System.out.println();
-		}
+		RGBColors.RGBtoHSV();
+		System.out.println("Testing conversion to HSV:");
+		RGBColors.print();
 		
+		// must be changed to user inputting these values
 		int[] firstHSV = {0, 0, 0, 120, 240, 60, 180, 300, 0, 0, 0, 60, 120, 0, 180, 240};
 		int[] secondHSV = {0, 0, 100, 100, 100, 100, 100, 100, 0, 0, 100, 100, 100, 100, 100, 100};
 		int[] thirdHSV = {0, 100, 100, 100, 100, 100, 100, 100, 75, 50, 50, 50, 50, 50, 50, 50};
 		
 		ColorConverter HSVColors = new ColorConverter (8, 2, 2, firstHSV, secondHSV, thirdHSV);
+		System.out.println("HSV colors:");
 		HSVColors.print();
 		
-		Color[][] convertedHSV = HSVColors.HSVtoRGB();
-		for (int i = 0; i < convertedHSV.length; i++) {
-			for (int j = 0; j < convertedHSV[0].length; j++) {
-				convertedHSV[i][j].printColor();
-				System.out.println("\t");
-			}
-			System.out.println();
-		}
+		HSVColors.HSVtoRGB();
+		System.out.println("Testing conversion to RGB:");
+		HSVColors.print();
 	}
 
 }
-
