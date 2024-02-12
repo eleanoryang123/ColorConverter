@@ -228,7 +228,7 @@ public class ColorConverterDriver {
 	    	JFrame frame = new JFrame("Rectangles");
 	    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    	frame.add(rects);
-	    	frame.setSize(500, 500);
+	    	frame.setSize(1250, 1250);
 	    	frame.setLocationRelativeTo(null);
 	    	frame.setVisible(true);
 
