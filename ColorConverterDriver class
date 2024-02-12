@@ -221,16 +221,17 @@ public class ColorConverterDriver {
 				HSVColors.HSVtoRGB();
 				System.out.println("Testing conversion to RGB:");
 				HSVColors.print();
+				// testing Java graphics
+				Rectangles rects = new Rectangles();
+	    			JFrame frame = new JFrame("Rectangles");
+	    			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    			frame.add(rects);
+	    			frame.setSize(1250, 1250);
+	    			frame.setLocationRelativeTo(null);
+	    			frame.setVisible(true);
 			}
 		}
-		// testing Java graphics
-		Rectangles rects = new Rectangles();
-	    	JFrame frame = new JFrame("Rectangles");
-	    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    	frame.add(rects);
-	    	frame.setSize(1250, 1250);
-	    	frame.setLocationRelativeTo(null);
-	    	frame.setVisible(true);
+		
 
 		
 	}
