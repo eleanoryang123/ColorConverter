@@ -3,6 +3,7 @@ public class ColorConverter {
 	private Color[][] myColors;
 	
 	/**
+	 * @author for the class - Eleanor
 	 * Constructor creates a myColors array with given dimensions and fills it with Color objects
 	 * formed by values in the three passed arrays.
 	 * @param rows - number of rows for the myColors array
