@@ -114,7 +114,7 @@ public class Color {
 	
 	/**
      * Gets the red component of the color.
-     * @return a double containing the red component
+     * @return an int containing the red component
      */
 	public int getRed(){
 		return rgbR;
@@ -122,7 +122,7 @@ public class Color {
 	
 	/**
      * Gets the green component of the color.
-     * @return a double containing the green component
+     * @return an int containing the green component
      */
 	public int getGreen(){
 		return rgbG;
@@ -130,7 +130,7 @@ public class Color {
 	
 	/**
      * Gets the blue component of the color.
-     * @return a double containing the blue component
+     * @return an int containing the blue component
      */
 	public int getBlue(){
 		return rgbB;
@@ -146,18 +146,37 @@ public class Color {
 		
 	}
 	
+	/**
+	 * Gets the hue of the color.
+	 * @return an int containing the hue component
+	 */
 	public int getHue(){
 		return hsvH;
 	}
 	
+	/**
+	 * Gets the saturation of the color.
+	 * @return an int containing the saturation component
+	 */
 	public int getSaturation(){
 		return hsvS;
 	}
 	
+	/**
+	 * Gets the brightness of the color.
+	 * @return an int containing the brightness component
+	 */
 	public int getBrightness(){
 		return hsvV;
 	}
 	
+	/**
+	 * Helper method to find the maximum of the three passed numbers
+	 * @param one - first number
+	 * @param two - second number
+	 * @param three - third number
+	 * @return the largest of the three numbers
+	 */
 	private double getMaximum(double one, double two, double three) {
 		double[] arr = {one, two, three};
 		double max = arr[0];
@@ -169,7 +188,13 @@ public class Color {
 		return max;
 		
 	}
-	
+	/**
+	 * Helper method to find the minimum of the three passed numbers
+	 * @param one - first number
+	 * @param two - second number
+	 * @param three - third number
+	 * @return the smallest of the three numbers
+	 */
 	private double getMinimum(double one, double two, double three) {
 		double[] arr = {one, two, three};
 		double min = arr[0];
@@ -181,6 +206,14 @@ public class Color {
 		return min;
 	}
 	
+	/**
+	 * Calculates the hue of a color given the red, green, blue, maximum and minimum of the three colors.
+	 * @param r - red of the color
+	 * @param g - green of the color
+	 * @param b - blue of the color
+	 * @param max - the largest of r, g, and b
+	 * @param min - the smallest of r, g, and b
+	 */
 	private void calculateHue(double r, double g, double b, double max, double min) {
 		double newR = r/255;
 		double newG = g/255;
@@ -203,6 +236,11 @@ public class Color {
 		
 	}
 	
+	/**
+	 * Calculates the saturation based on the max and min of the colors.
+	 * @param max - maximum of the red, green, and blue components
+	 * @param min - minimum of the red, green, and blue components
+	 */
 	private void calculateSaturation(double max, double min) {
 		double delta = max-min;
 		if(max == 0) {
@@ -213,10 +251,18 @@ public class Color {
 		}
 	}
 	
+	/**
+	 * Calculates the brightness of the color.
+	 * @param max - maximum of the red, green, and blue components
+	 */
 	private void calculateBrightness(double max) {
 		hsvV = (int)max;
 	}
 	
+	/**
+	 * Converts the RGB values to HSV values
+	 * @return a new Color object with HSV values converted from its RGB values
+	 */
 	public Color RGBtoHSV() {
 		double max = getMaximum((double)rgbR/255, (double)rgbG/255, (double)rgbB/255);
 		double min = getMinimum((double)rgbR/255, (double)rgbG/255, (double)rgbB/255);
@@ -231,6 +277,10 @@ public class Color {
 
 	}
 	
+	/**
+	 * Converts the HSV values to RGB values
+	 * @return a new Color object with RGB values converted from its HSV values
+	 */
 	public Color HSVtoRGB() {
 		double c = hsvV/100.0*hsvS/100.0;
 		double x = c*(1-Math.abs((hsvH/60)%2-1));
@@ -293,6 +343,9 @@ public class Color {
 		
 	}
 	
+	/**
+	 * Prints the object in the desired format.
+	 */
 	public void printColor()
 	{
 		char c = 176;
