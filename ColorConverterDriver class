@@ -219,7 +219,14 @@ public class ColorConverterDriver {
 				HSVColors.print();
 			}
 		}
-		
+		// testing Java graphics
+		Rectangles rects = new Rectangles();
+	    JFrame frame = new JFrame("Rectangles");
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.add(rects);
+	    frame.setSize(500, 500);
+	    frame.setLocationRelativeTo(null);
+	    frame.setVisible(true);
 
 		
 	}
