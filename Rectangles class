@@ -7,30 +7,32 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Rectangles extends JPanel {
+	/**
+	 * Constructs a grid with 250x250 random colors in RGB
+	 */
+  	public void paintComponent(Graphics g) {
+    		super.paintComponent(g);
+    		Graphics2D g2d = (Graphics2D) g;
 
-  public void paintComponent(Graphics g) {
-    super.paintComponent(g);
-    Graphics2D g2d = (Graphics2D) g;
-
-    int red = 0;
-	  int green = 0;
-	  int blue = 0;
-	  int[] firstR = new int[62500];
-	  int[] firstG = new int[62500];
-	  int[] firstB = new int[62500];
+    		int red = 0;
+	  	int green = 0;
+	  	int blue = 0;
+	  	int[] firstR = new int[62500];
+	  	int[] firstG = new int[62500];
+	  	int[] firstB = new int[62500];
 	
-	  for(int i = 0; i<62500; i++) {
-		  red = (int)(Math.random()*255);
-		  firstR[i] = red;
-	  	green = (int)(Math.random()*255);
-		  firstG[i] = green;
-		  blue = (int)(Math.random()*255);
-		  firstB[i] = blue;
-	  }
-	  for (int i = 0; i < firstR.length; i++) {
-		  g2d.setColor(new Color(firstR[i],firstG[i],firstB[i]));
-		  g2d.fillRect(i%250*2, i/250*2, 2, 2);
-	  }
+	  	for(int i = 0; i<62500; i++) {
+		  	red = (int)(Math.random()*255);
+		  	firstR[i] = red;
+	  		green = (int)(Math.random()*255);
+		  	firstG[i] = green;
+		  	blue = (int)(Math.random()*255);
+		  	firstB[i] = blue;
+	  	}
+	  	for (int i = 0; i < firstR.length; i++) {
+		  	g2d.setColor(new Color(firstR[i],firstG[i],firstB[i]));
+		  	g2d.fillRect(i%250*2, i/250*2, 2, 2);
+	  	}
     
-  }
+  	}
 }
