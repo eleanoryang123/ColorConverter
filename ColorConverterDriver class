@@ -5,7 +5,11 @@ import java.util.Scanner;
 
 
 public class ColorConverterDriver {
-	
+	/**
+	 * Returns an ArrayList of int[] arrays after processing a file
+	 * @param filename - file of int values that represent RGB values or HSV values
+	 * @return an ArrayList of int[] arrays
+	 */
 	public static ArrayList<int[]> processFile(String filename) {
         ArrayList<int[]> arrays = new ArrayList<int[]>();
 
@@ -221,12 +225,12 @@ public class ColorConverterDriver {
 		}
 		// testing Java graphics
 		Rectangles rects = new Rectangles();
-	    JFrame frame = new JFrame("Rectangles");
-	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    frame.add(rects);
-	    frame.setSize(500, 500);
-	    frame.setLocationRelativeTo(null);
-	    frame.setVisible(true);
+	    	JFrame frame = new JFrame("Rectangles");
+	    	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    	frame.add(rects);
+	    	frame.setSize(500, 500);
+	    	frame.setLocationRelativeTo(null);
+	    	frame.setVisible(true);
 
 		
 	}
