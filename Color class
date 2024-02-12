@@ -10,6 +10,7 @@ public class Color {
 	
 	/**
      * Constructs a Color object based on the specified color space type and values.
+     * @author for the class - Shrishti
      * @param type the type of color space (1 for RGB, 2 for HSV)
      * @param value1 the value of the first component
      * @param value2 the value of the second component
