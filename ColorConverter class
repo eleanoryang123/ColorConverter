@@ -64,7 +64,7 @@ public class ColorConverter {
 	}
 	
 	/**
-	 * Prints a 2D array of color objects
+	 * Prints a 2D array of Color objects
 	 */
 	public void print() {
 		for (int i = 0; i < myColors.length; i++) {
